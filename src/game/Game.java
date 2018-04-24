@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import game.Card.Rank;
 import game.Card.Suit;
@@ -11,6 +12,9 @@ public class Game {
 
 	private List<Card> deck;
 	private List<Player> players;
+	
+	private Player currentPlayer;
+	private int currentPlayerIndex;
 
 	public static void main(String[] args) {
 		new Game();
@@ -28,8 +32,8 @@ public class Game {
 		players.add(p1);
 
 		assignCards();
-
-		
+		start();
+		keyInputHandler();
 	}
 
 	public void initCards() {
@@ -53,6 +57,31 @@ public class Game {
 				deck.remove(randomIndex);
 			}
 		}
+	}
+	
+	private void start() {
+		
+	}
+	
+	private void keyInputHandler() {
+		try (Scanner in = new Scanner(System.in)) {
+			String answer = in.hasNextLine() ? in.nextLine() : null;
+			if (answer != null) {
+				nextPlayer();
+				System.out.println(currentPlayer + ": " + currentPlayer.getCards());
+
+				keyInputHandler();
+			}
+		}
+	}
+	
+	private void nextPlayer() {
+		if (currentPlayerIndex >= players.size() - 1) {
+			currentPlayerIndex = 0;
+		} else {
+			currentPlayerIndex++;
+		}
+		currentPlayer = players.get(currentPlayerIndex);
 	}
 
 	private int randomIndex() {

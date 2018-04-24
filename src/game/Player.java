@@ -13,15 +13,15 @@ public class Player {
 		cards = new HashSet<Card>();
 	}
 	
-	public String getName() {
-		return name;
-	}
-	
 	public Set<Card> getCards() {
 		return cards;
 	}
 	
 	public void addCard(Card card) {
 		cards.add(card);
+	}
+	
+	public String toString() {
+		return name;
 	}
 }
